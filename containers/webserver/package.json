@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "",
+  "scripts": {
+    "build:ts": "tsc",
+    "docker:build": "docker build -t okottege/poc-webserver .",
+    "docker:run": "docker run -p 8080:8080 -e SERVER_PORT=8080 -e API_BASE=https://octereztlh.execute-api.us-west-2.amazonaws.com -d okottege/poc-webserver"
+  },
   "dependencies": {
     "axios": "^0.21.1",
     "ejs": "^3.1.5",

@@ -7,7 +7,7 @@ interface NetworkingProps {
 }
 
 export class Networking extends cdk.Construct {
-  private readonly vpc: ec2.IVpc;
+  public readonly vpc: ec2.IVpc;
 
   constructor(scope: cdk.Construct, id: string, props: NetworkingProps) {
     super(scope, id);

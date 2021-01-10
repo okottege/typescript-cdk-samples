@@ -1,11 +1,12 @@
 import * as cdk from '@aws-cdk/core';
-import {Bucket, BucketEncryption} from "@aws-cdk/aws-s3";
+import {Bucket, BucketEncryption} from '@aws-cdk/aws-s3';
 import {Tags} from "@aws-cdk/core";
 import * as s3Deploy from '@aws-cdk/aws-s3-deployment';
 import * as path from 'path';
 
-import {Networking} from "./networking";
-import {DocumentManagementAPI} from "./api";
+import {Networking} from './networking';
+import {DocumentManagementAPI} from './api';
+import {DocumentManagementWebserver} from './webserver';
 
 export class TypescriptCdkStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
@@ -35,5 +36,11 @@ export class TypescriptCdkStack extends cdk.Stack {
       documentBucket: bucket
     });
     Tags.of(api).add('Module', 'API');
+
+    const webserver = new DocumentManagementWebserver(this, 'DocumentManagementWebServer', {
+      vpc: networking.vpc,
+      api: api.httpApi
+    });
+    Tags.of(webserver).add('Module', 'Webserver');
   }
 }
